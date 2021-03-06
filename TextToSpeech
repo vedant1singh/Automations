@@ -1,0 +1,11 @@
+#Install packages
+pip insatll ibm_watson
+#Text to speech services in the voice of Henry#
+from ibm_watson import TextToSpeechV1
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+authenticator = IAMAuthenticator('zt89yg2eahc2wwjTAJ65ojs_QNwzVCJYXipdVRMp7KLg')
+text_to_speech = TextToSpeechV1(authenticator=authenticator)
+text_to_speech.set_service_url("https://api.jp-tok.text-to-speech.watson.cloud.ibm.com/instances/32b260f9-df2c-4f90-a63d-4a9db2e47e09")
+with open('./Henry.mp3', 'wb') as audio_file:
+    res = text_to_speech.synthesize(input(), accept = "audio/mp3", voice= 'en-US_HenryV3Voice').get_result()
+    audio_file.write(res.content)
